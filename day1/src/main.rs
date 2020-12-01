@@ -2,13 +2,7 @@ use std::collections::HashSet;
 use std::fs;
 
 fn main() {
-    let contents = fs::read_to_string("input.txt").expect("Failed reading file.");
-
-    let mut set = HashSet::new();
-
-    contents.lines().for_each(|line| {
-        set.insert(line.parse::<i32>().unwrap());
-    });
+    let set = read_file_to_set("input.txt");
 
     match find_two(&set) {
         Some((n1, n2)) => println!("{} * {} = {}", n1, n2, n1 * n2),
@@ -19,6 +13,18 @@ fn main() {
         Some((n1, n2, n3)) => println!("{} * {} * {} = {}", n1, n2, n3, n1 * n2 * n3),
         None => println!("Didn't find 2 numbers that add up to 2020"),
     }
+}
+
+fn read_file_to_set(filename: &str) -> HashSet<i32> {
+    let contents = fs::read_to_string(filename).expect("Failed reading file.");
+
+    let mut set = HashSet::new();
+
+    contents.lines().for_each(|line| {
+        set.insert(line.parse::<i32>().unwrap());
+    });
+
+    set
 }
 
 fn find_two(set: &HashSet<i32>) -> Option<(i32, i32)> {
