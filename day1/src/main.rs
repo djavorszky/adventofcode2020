@@ -1,37 +1,38 @@
-use std::collections::HashSet;
 use std::fs;
+use std::io;
 
-fn main() {
-    let set = read_file_to_set("input.txt");
+fn main() -> Result<(), io::Error> {
+    let numbers = read_file_to_set("input.txt")?;
 
-    match find_two(&set) {
+    match find_two(&numbers) {
         Some((n1, n2)) => println!("{} * {} = {}", n1, n2, n1 * n2),
         None => println!("Didn't find 2 numbers that add up to 2020"),
     }
 
-    match find_three(&set) {
+    match find_three(&numbers) {
         Some((n1, n2, n3)) => println!("{} * {} * {} = {}", n1, n2, n3, n1 * n2 * n3),
         None => println!("Didn't find 2 numbers that add up to 2020"),
     }
+    Ok(())
 }
 
-fn read_file_to_set(filename: &str) -> HashSet<i32> {
-    let contents = fs::read_to_string(filename).expect("Failed reading file.");
+fn read_file_to_set(filename: &str) -> Result<Vec<i32>, io::Error> {
+    let contents = fs::read_to_string(filename)?;
 
-    let mut set = HashSet::new();
+    let mut numbers = Vec::new();
 
     contents.lines().for_each(|line| {
-        set.insert(line.parse::<i32>().unwrap());
+        numbers.push(line.parse::<i32>().unwrap());
     });
 
-    set
+    Ok(numbers)
 }
 
-fn find_two(set: &HashSet<i32>) -> Option<(i32, i32)> {
-    for num in set {
+fn find_two(numbers: &Vec<i32>) -> Option<(i32, i32)> {
+    for num in numbers {
         let complement = 2020 - num;
 
-        if set.contains(&complement) {
+        if numbers.contains(&complement) {
             return Some((*num, complement));
         }
     }
@@ -39,12 +40,12 @@ fn find_two(set: &HashSet<i32>) -> Option<(i32, i32)> {
     None
 }
 
-fn find_three(set: &HashSet<i32>) -> Option<(i32, i32, i32)> {
-    for num in set {
-        for num2 in set {
+fn find_three(numbers: &Vec<i32>) -> Option<(i32, i32, i32)> {
+    for (idx, num) in numbers.iter().enumerate() {
+        for num2 in &numbers[idx..] {
             let complement = 2020 - num2 - num;
 
-            if set.contains(&complement) {
+            if numbers.contains(&complement) {
                 return Some((*num, *num2, complement));
             }
         }
