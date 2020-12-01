@@ -10,13 +10,15 @@ fn main() {
         set.insert(line.parse::<i32>().unwrap());
     });
 
-    let (num1, num2) = find_two(&set).expect("Didn't find 2 sets.");
+    match find_two(&set) {
+        Some((n1, n2)) => println!("{} * {} = {}", n1, n2, n1 * n2),
+        None => println!("Didn't find 2 numbers that add up to 2020"),
+    }
 
-    println!("{} * {} = {}", num1, num2, num1 * num2);
-
-    let (num1, num2, num3) = find_three(&set).expect("Didn't find 3 sets");
-
-    println!("{} * {} * {} = {}", num1, num2, num3, num1 * num2 * num3);
+    match find_three(&set) {
+        Some((n1, n2, n3)) => println!("{} * {} * {} = {}", n1, n2, n3, n1 * n2 * n3),
+        None => println!("Didn't find 2 numbers that add up to 2020"),
+    }
 }
 
 fn find_two(set: &HashSet<i32>) -> Option<(i32, i32)> {
