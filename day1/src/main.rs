@@ -1,3 +1,4 @@
+use std::collections::BTreeSet;
 use std::fs;
 use std::io;
 
@@ -16,19 +17,19 @@ fn main() -> Result<(), io::Error> {
     Ok(())
 }
 
-fn read_file_to_set(filename: &str) -> Result<Vec<i32>, io::Error> {
+fn read_file_to_set(filename: &str) -> Result<BTreeSet<i32>, io::Error> {
     let contents = fs::read_to_string(filename)?;
 
-    let mut numbers = Vec::new();
+    let mut numbers = BTreeSet::new();
 
     contents.lines().for_each(|line| {
-        numbers.push(line.parse::<i32>().unwrap());
+        numbers.insert(line.parse::<i32>().unwrap());
     });
 
     Ok(numbers)
 }
 
-fn find_two(numbers: &Vec<i32>) -> Option<(i32, i32)> {
+fn find_two(numbers: &BTreeSet<i32>) -> Option<(i32, i32)> {
     for num in numbers {
         let complement = 2020 - num;
 
@@ -40,9 +41,9 @@ fn find_two(numbers: &Vec<i32>) -> Option<(i32, i32)> {
     None
 }
 
-fn find_three(numbers: &Vec<i32>) -> Option<(i32, i32, i32)> {
-    for (idx, num) in numbers.iter().enumerate() {
-        for num2 in &numbers[idx..] {
+fn find_three(numbers: &BTreeSet<i32>) -> Option<(i32, i32, i32)> {
+    for num in numbers {
+        for num2 in numbers {
             let complement = 2020 - num2 - num;
 
             if numbers.contains(&complement) {
