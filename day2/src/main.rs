@@ -4,12 +4,18 @@ use std::io;
 fn main() -> Result<(), io::Error> {
     let pwd_policies = read_file_to_vec("input.txt")?;
 
-    let good_passwords = pwd_policies
+    let good_passwords_v1 = pwd_policies
         .iter()
-        .filter(|pwd_policy| pwd_policy.is_valid())
+        .filter(|pwd_policy| pwd_policy.is_valid_v1())
         .count();
 
-    println!("{}", good_passwords);
+    println!("first pw policy: {}", good_passwords_v1);
+    let good_passwords_v2 = pwd_policies
+        .iter()
+        .filter(|pwd_policy| pwd_policy.is_valid_v2())
+        .count();
+
+    println!("second pw policy: {}", good_passwords_v2);
 
     Ok(())
 }
@@ -49,9 +55,18 @@ impl PwdPolicy {
         }
     }
 
-    fn is_valid(self: &Self) -> bool {
+    fn is_valid_v1(self: &Self) -> bool {
         let count = self.pwd.chars().filter(|c| c == &self.letter).count();
 
         count >= self.min && count <= self.max
+    }
+    fn is_valid_v2(self: &Self) -> bool {
+        let chars: Vec<char> = self.pwd.chars().collect();
+
+        let first_pos = chars[self.min - 1];
+        let second_pos = chars[self.max - 1];
+
+        (first_pos == self.letter && second_pos != self.letter)
+            || (first_pos != self.letter && second_pos == self.letter)
     }
 }
