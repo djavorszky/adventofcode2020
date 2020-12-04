@@ -54,6 +54,8 @@ enum DocType {
     CountryId(String),
 }
 
+const EYE_COLORS: &[&str; 7] = &["amb", "blu", "brn", "gry", "grn", "hzl", "oth"];
+
 impl DocType {
     fn from(id: &str, value: &str) -> Self {
         match id {
@@ -108,9 +110,7 @@ impl DocType {
                     false
                 }
             }
-            DocType::EyeColor(val) => {
-                vec!["amb", "blu", "brn", "gry", "grn", "hzl", "oth"].contains(&val.as_str())
-            }
+            DocType::EyeColor(val) => EYE_COLORS.contains(&val.as_str()),
             DocType::PassportId(val) => {
                 if val.len() == 9 {
                     val.parse::<usize>().is_ok()
