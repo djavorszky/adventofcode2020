@@ -1,5 +1,5 @@
-use regex::Regex;
 use std::fs;
+use std::i64;
 use std::io;
 
 fn main() -> Result<(), io::Error> {
@@ -101,10 +101,16 @@ impl DocType {
                     false
                 }
             }
-            DocType::HairColor(val) => Regex::new(r"#[a-f0-9]{6}").unwrap().is_match(val),
-            DocType::EyeColor(val) => Regex::new(r"amb|blu|brn|gry|grn|hzl|oth")
-                .unwrap()
-                .is_match(val),
+            DocType::HairColor(val) => {
+                if val.starts_with('#') && val.len() == 7 {
+                    i64::from_str_radix(&val[1..], 16).is_ok()
+                } else {
+                    false
+                }
+            }
+            DocType::EyeColor(val) => {
+                vec!["amb", "blu", "brn", "gry", "grn", "hzl", "oth"].contains(&val.as_str())
+            }
             DocType::PassportId(val) => {
                 if val.len() == 9 {
                     val.parse::<usize>().is_ok()
