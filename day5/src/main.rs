@@ -6,6 +6,10 @@ fn main() -> Result<(), io::Error> {
 
     println!("v1: {}", v1);
 
+    let v2 = task_v2(input.as_str());
+
+    println!("v2: {}", v2.unwrap());
+
     Ok(())
 }
 
@@ -15,6 +19,25 @@ fn task_v1(input: &str) -> usize {
         .map(|line| Seat::from(line).get_id())
         .max()
         .unwrap()
+}
+
+fn task_v2(input: &str) -> Option<usize> {
+    let mut ids: Vec<usize> = input
+        .lines()
+        .map(|line| Seat::from(line).get_id())
+        .collect();
+
+    ids.sort();
+
+    for (idx, id) in ids.iter().enumerate() {
+        let next_item = ids[idx + 1];
+
+        if next_item != id + 1 {
+            return Some(id + 1);
+        }
+    }
+
+    None
 }
 
 struct Seat {
