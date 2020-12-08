@@ -1,4 +1,4 @@
-use std::collections::{HashMap, HashSet};
+use std::collections::{BTreeMap, HashSet};
 use std::{fs, io};
 
 fn main() -> Result<(), io::Error> {
@@ -35,8 +35,8 @@ fn task_v1(input: &str) -> i32 {
     acc
 }
 
-fn input_to_map(input: &str) -> HashMap<i32, Instruction> {
-    let mut instructions = HashMap::new();
+fn input_to_map(input: &str) -> BTreeMap<i32, Instruction> {
+    let mut instructions = BTreeMap::new();
 
     input.lines().enumerate().for_each(|(idx, line)| {
         instructions.insert((idx + 1) as i32, Instruction::from(line));
