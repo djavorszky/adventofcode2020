@@ -1,3 +1,4 @@
+use std::clone::Clone;
 use std::collections::{BTreeMap, HashSet};
 use std::{fs, io};
 
@@ -8,16 +9,61 @@ fn main() -> Result<(), io::Error> {
 
     println!("v1: {}", v1_result);
 
+    let v2_result = task_v2(&input);
+
+    println!("v2: {}", v2_result);
+
     Ok(())
 }
 
-fn task_v1(input: &str) -> i32 {
-    let mut seen = HashSet::new();
-
+fn task_v2(input: &str) -> i32 {
     let instructions = input_to_map(input);
 
+    let mut updated_instructions = instructions.clone();
+
+    for (line, instruction) in instructions.iter() {
+        match instruction.typ {
+            IType::NOP => {
+                updated_instructions.get_mut(line).unwrap().typ = IType::JMP;
+
+                let (looped, acc) = find_acc(&updated_instructions);
+
+                if !looped {
+                    return acc;
+                } else {
+                    updated_instructions.get_mut(line).unwrap().typ = IType::NOP;
+                }
+            }
+            IType::JMP => {
+                updated_instructions.get_mut(line).unwrap().typ = IType::NOP;
+
+                let (looped, acc) = find_acc(&updated_instructions);
+
+                if !looped {
+                    return acc;
+                } else {
+                    updated_instructions.get_mut(line).unwrap().typ = IType::JMP;
+                }
+            }
+            _ => (),
+        }
+    }
+
+    0
+}
+
+fn task_v1(input: &str) -> i32 {
+    let instructions = input_to_map(input);
+    let (_, acc) = find_acc(&instructions);
+
+    acc
+}
+
+fn find_acc(instructions: &BTreeMap<i32, Instruction>) -> (bool, i32) {
+    let mut seen = HashSet::new();
     let mut loc: i32 = 1;
 
+    let mut looped = true;
     let mut acc = 0;
     while seen.insert(loc) {
         let current = instructions.get(&loc).unwrap();
@@ -30,9 +76,14 @@ fn task_v1(input: &str) -> i32 {
             IType::NOP => loc += 1,
             IType::JMP => loc += current.offset,
         }
+
+        if loc > instructions.len() as i32 {
+            looped = false;
+            break;
+        }
     }
 
-    acc
+    (looped, acc)
 }
 
 fn input_to_map(input: &str) -> BTreeMap<i32, Instruction> {
@@ -45,13 +96,13 @@ fn input_to_map(input: &str) -> BTreeMap<i32, Instruction> {
     instructions
 }
 
-#[derive(Debug, PartialEq, Eq, Hash)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 struct Instruction {
     typ: IType,
     offset: i32,
 }
 
-#[derive(Debug, PartialEq, Eq, Hash)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 enum IType {
     NOP,
     ACC,
@@ -80,9 +131,7 @@ impl Instruction {
 mod tests {
     use super::*;
 
-    #[test]
-    fn test_task_v1() {
-        let test_input = "nop +0
+    const TEST_INPUT: &str = "nop +0
 acc +1
 jmp +4
 acc +3
@@ -92,7 +141,41 @@ acc +1
 jmp -4
 acc +6";
 
-        assert_eq!(task_v1(test_input), 5);
+    #[test]
+    fn test_task_v1() {
+        assert_eq!(task_v1(TEST_INPUT), 5);
+    }
+
+    #[test]
+    fn test_find_acc_with_looping() {
+        let instructions = input_to_map(TEST_INPUT);
+
+        let (looped, acc) = find_acc(&instructions);
+
+        assert_eq!(looped, true);
+        assert_eq!(acc, 5);
+    }
+
+    #[test]
+    fn test_find_acc_no_loop() {
+        let input = "nop +0
+acc +5
+acc +3
+jmp +1
+acc +2
+nop +0";
+
+        let instructions = input_to_map(input);
+
+        let (looped, acc) = find_acc(&instructions);
+
+        assert_eq!(looped, false);
+        assert_eq!(acc, 10);
+    }
+
+    #[test]
+    fn test_task_v2() {
+        assert_eq!(task_v2(TEST_INPUT), 8);
     }
 
     #[test]
