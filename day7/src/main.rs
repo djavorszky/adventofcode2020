@@ -10,6 +10,10 @@ fn main() -> Result<(), io::Error> {
 
     println!("v1: {}", v1_result);
 
+    let v2_result = task_v2(contents.as_str());
+
+    println!("v2: {}", v2_result);
+
     Ok(())
 }
 
@@ -17,6 +21,30 @@ fn main() -> Result<(), io::Error> {
 struct Bags {
     name: String,
     amount: usize,
+}
+
+fn task_v2(input: &str) -> usize {
+    let rels = build_relationship(input);
+
+    let mut total_bags = 0;
+
+    for child in rels.get("shiny gold").unwrap() {
+        total_bags += child.amount * walk_v2(child.name.as_str(), &rels);
+    }
+
+    total_bags
+}
+
+fn walk_v2(bag_name: &str, bags: &HashMap<&str, Vec<Rc<Bags>>>) -> usize {
+    let contained_bags = bags.get(bag_name).unwrap();
+
+    let mut totals = 1;
+
+    for bag in contained_bags {
+        totals += bag.amount * walk_v2(bag.name.as_str(), bags);
+    }
+
+    totals
 }
 
 fn task_v1(input: &str) -> usize {
@@ -32,13 +60,13 @@ fn task_v1(input: &str) -> usize {
     let seen: &mut HashSet<&str> = &mut HashSet::new();
 
     for parent in parents {
-        combinations += walk(parent, &reverse_rels, seen);
+        combinations += walk_v1(parent, &reverse_rels, seen);
     }
 
     combinations
 }
 
-fn walk<'a>(
+fn walk_v1<'a>(
     name: &'a str,
     parents: &HashMap<String, Vec<&'a str>>,
     seen: &mut HashSet<&'a str>,
@@ -53,7 +81,7 @@ fn walk<'a>(
 
     for parent in node_parents {
         if !seen.contains(parent) {
-            found += walk(parent, parents, seen);
+            found += walk_v1(parent, parents, seen);
         }
     }
 
@@ -372,5 +400,18 @@ faded blue bags contain no other bags.
 dotted black bags contain no other bags.";
 
         assert_eq!(task_v1(test_input), 4);
+    }
+
+    #[test]
+    fn test_task_v2() {
+        let test_input = "shiny gold bags contain 2 dark red bags.
+dark red bags contain 2 dark orange bags.
+dark orange bags contain 2 dark yellow bags.
+dark yellow bags contain 2 dark green bags.
+dark green bags contain 2 dark blue bags.
+dark blue bags contain 2 dark violet bags.
+dark violet bags contain no other bags.";
+
+        assert_eq!(task_v2(test_input), 126);
     }
 }
