@@ -127,8 +127,29 @@ mod tests {
 
     #[test]
     fn test_find_arrangements() {
-        let input = vec![1, 2, 3, 4, 5];
+        let input = vec![0, 1, 2, 3, 4];
 
         assert_eq!(find_arrangements(0, &input), 7);
+    }
+
+    #[test]
+    fn test_find_arrangements_v2() {
+        let input = vec![0, 1, 2, 3, 4, 5];
+
+        assert_eq!(find_arrangements(0, &input), 13);
+    }
+
+    #[test]
+    fn test_find_arrangements_v3() {
+        let input = vec![0, 1, 2, 3, 4, 5, 6];
+
+        assert_eq!(find_arrangements(0, &input), 24);
+    }
+
+    #[test]
+    fn test_find_arrangements_v4() {
+        let input = vec![1, 2, 3, 6];
+
+        assert_eq!(find_arrangements(0, &input), 2);
     }
 }
