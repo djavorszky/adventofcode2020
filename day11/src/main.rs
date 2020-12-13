@@ -24,8 +24,8 @@ fn task_v1(input: &str) -> usize {
 
 #[derive(Debug, PartialEq)]
 struct Floor {
-    width: usize,
-    height: usize,
+    line_width: usize,
+    line_nums: usize,
     tiles: Vec<Tile>,
 }
 
@@ -42,17 +42,17 @@ impl Floor {
             })
             .collect();
 
-        let width = input.lines().nth(0).unwrap().chars().count();
-        let height = input.lines().count();
+        let line_width = input.lines().nth(0).unwrap().chars().count();
+        let line_nums = input.lines().count();
 
         Self {
             tiles: tiles,
-            width: width,
-            height: height,
+            line_width: line_width,
+            line_nums: line_nums,
         }
     }
 
-    fn tick(&mut self) {
+    fn seat_people_v1(&mut self) {
         loop {
             let mut layout_changed = false;
 
@@ -62,7 +62,7 @@ impl Floor {
                 .map(|tile| match tile {
                     Tile::Empty(x, y) => {
                         if !self
-                            .get_neighbours(*x, *y)
+                            .get_immediate_neighbours(*x, *y)
                             .iter()
                             .any(|n| matches!(n, Tile::Occupied(_, _)))
                         {
@@ -74,7 +74,7 @@ impl Floor {
                     }
                     Tile::Occupied(x, y) => {
                         if self
-                            .get_neighbours(*x, *y)
+                            .get_immediate_neighbours(*x, *y)
                             .iter()
                             .filter(|n| matches!(n, Tile::Occupied(_, _)))
                             .count()
@@ -101,7 +101,7 @@ impl Floor {
     }
 
     fn is_last_row(&self, x: usize) -> bool {
-        x == self.height - 1
+        x == self.line_nums - 1
     }
 
     fn is_first_col(&self, y: usize) -> bool {
@@ -109,28 +109,28 @@ impl Floor {
     }
 
     fn is_last_col(&self, y: usize) -> bool {
-        y == self.width - 1
+        y == self.line_width - 1
     }
 
-    fn get_neighbours(&self, x: usize, y: usize) -> Vec<&Tile> {
+    fn get_immediate_neighbours(&self, x: usize, y: usize) -> Vec<&Tile> {
         let mut neighbours = Vec::new();
 
-        let location = x * self.width + y;
+        let location = x * self.line_width + y;
 
         if !self.is_first_row(x) {
             if !self.is_first_col(y) {
                 self.tiles
-                    .get(location - self.width - 1)
+                    .get(location - self.line_width - 1)
                     .and_then(|tile| Some(neighbours.push(tile)));
             }
 
             self.tiles
-                .get(location - self.width)
+                .get(location - self.line_width)
                 .and_then(|tile| Some(neighbours.push(tile)));
 
             if !self.is_last_col(y) {
                 self.tiles
-                    .get(location - self.width + 1)
+                    .get(location - self.line_width + 1)
                     .and_then(|tile| Some(neighbours.push(tile)));
             }
         }
@@ -150,17 +150,17 @@ impl Floor {
         if !self.is_last_row(x) {
             if !self.is_first_col(y) {
                 self.tiles
-                    .get(location + self.width - 1)
+                    .get(location + self.line_width - 1)
                     .and_then(|tile| Some(neighbours.push(tile)));
             }
 
             self.tiles
-                .get(location + self.width)
+                .get(location + self.line_width)
                 .and_then(|tile| Some(neighbours.push(tile)));
 
             if !self.is_last_col(y) {
                 self.tiles
-                    .get(location + self.width + 1)
+                    .get(location + self.line_width + 1)
                     .and_then(|tile| Some(neighbours.push(tile)));
             }
         }
@@ -197,8 +197,8 @@ mod tests {
         let input = ".#\nL.\nL#";
 
         let expected = Floor {
-            width: 2,
-            height: 3,
+            line_width: 2,
+            line_nums: 3,
             tiles: vec![
                 Tile::Floor(0, 0),
                 Tile::Occupied(0, 1),
@@ -215,11 +215,11 @@ mod tests {
     }
 
     #[test]
-    fn test_get_neighbours_start() {
+    fn test_get_immediate_neighbours_start() {
         let test_floor = Floor::from(".#LL\n.#LL\n.#LL\n.#LL\n.#LL");
 
         assert_eq!(
-            test_floor.get_neighbours(0, 0),
+            test_floor.get_immediate_neighbours(0, 0),
             vec![
                 &Tile::Occupied(0, 1),
                 &Tile::Floor(1, 0),
@@ -229,11 +229,11 @@ mod tests {
     }
 
     #[test]
-    fn test_get_neighbours_row_start() {
+    fn test_get_immediate_neighbours_row_start() {
         let test_floor = Floor::from(".#LL\n.#LL\n.#LL\n.#LL\n.#LL");
 
         assert_eq!(
-            test_floor.get_neighbours(1, 0),
+            test_floor.get_immediate_neighbours(1, 0),
             vec![
                 &Tile::Floor(0, 0),
                 &Tile::Occupied(0, 1),
@@ -245,11 +245,11 @@ mod tests {
     }
 
     #[test]
-    fn test_get_neighbours_row_end() {
+    fn test_get_immediate_neighbours_row_end() {
         let test_floor = Floor::from(".#LL\n.#LL\n.#LL\n.#LL\n.#LL");
 
         assert_eq!(
-            test_floor.get_neighbours(1, 3),
+            test_floor.get_immediate_neighbours(1, 3),
             vec![
                 &Tile::Empty(0, 2),
                 &Tile::Empty(0, 3),
@@ -261,21 +261,21 @@ mod tests {
     }
 
     #[test]
-    fn test_get_neighbours_end() {
+    fn test_get_immediate_neighbours_end() {
         let test_floor = Floor::from(".#LL\n.#LL\n.#LL\n.#LL\n.#LL");
 
         assert_eq!(
-            test_floor.get_neighbours(4, 3),
+            test_floor.get_immediate_neighbours(4, 3),
             vec![&Tile::Empty(3, 2), &Tile::Empty(3, 3), &Tile::Empty(4, 2)]
         )
     }
 
     #[test]
-    fn test_get_neighbours_middle() {
+    fn test_get_immediate_neighbours_middle() {
         let test_floor = Floor::from(".#LL\n.#LL\n.#LL\n.#LL\n.#LL");
 
         assert_eq!(
-            test_floor.get_neighbours(1, 1),
+            test_floor.get_immediate_neighbours(1, 1),
             vec![
                 &Tile::Floor(0, 0),
                 &Tile::Occupied(0, 1),
