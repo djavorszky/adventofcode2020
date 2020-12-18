@@ -9,14 +9,17 @@ import java.util.Objects;
 
 public class FileInputSource implements InputSource {
 
-    private final List<String> input;
+  private final List<String> input;
 
-    public FileInputSource(String filePath) throws Exception {
-        input = IOUtils.readLines(Objects.requireNonNull(ClassLoader.getSystemResourceAsStream(filePath)), Charset.defaultCharset());
-    }
+  public FileInputSource(String filePath) throws Exception {
+    input =
+        IOUtils.readLines(
+            Objects.requireNonNull(ClassLoader.getSystemResourceAsStream(filePath)),
+            Charset.defaultCharset());
+  }
 
-    @Override
-    public List<String> getInput() {
-        return input;
-    }
+  @Override
+  public List<String> getInput() {
+    return input;
+  }
 }

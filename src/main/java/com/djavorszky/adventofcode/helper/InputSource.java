@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface InputSource {
 
-    List<String> getInput();
+  List<String> getInput();
 }

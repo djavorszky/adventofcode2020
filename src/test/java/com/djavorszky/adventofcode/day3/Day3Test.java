@@ -7,34 +7,32 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class Day3Test {
 
-    private final String testInput = "..##.......\n" +
-            "#...#...#..\n" +
-            ".#....#..#.\n" +
-            "..#.#...#.#\n" +
-            ".#...##..#.\n" +
-            "..#.##.....\n" +
-            ".#.#.#....#\n" +
-            ".#........#\n" +
-            "#.##...#...\n" +
-            "#...##....#\n" +
-            ".#..#...#.#\n";
+  private final String testInput =
+      "..##.......\n"
+          + "#...#...#..\n"
+          + ".#....#..#.\n"
+          + "..#.#...#.#\n"
+          + ".#...##..#.\n"
+          + "..#.##.....\n"
+          + ".#.#.#....#\n"
+          + ".#........#\n"
+          + "#.##...#...\n"
+          + "#...##....#\n"
+          + ".#..#...#.#\n";
 
-    private final Day3 day3 = new Day3();
+  private final Day3 day3 = new Day3();
 
-    @Test
-    void testTask1() {
-        Long result = day3.task1(new StringInputSource(testInput, "\n"));
+  @Test
+  void testTask1() {
+    Long result = day3.task1(new StringInputSource(testInput, "\n"));
 
-        assertThat(result).isEqualTo(7);
-    }
+    assertThat(result).isEqualTo(7);
+  }
 
+  @Test
+  void testTask2() {
+    Long result = day3.task2(new StringInputSource(testInput, "\n"));
 
-    @Test
-    void testTask2() {
-        Long result = day3.task2(new StringInputSource(testInput, "\n"));
-
-        assertThat(result).isEqualTo(336);
-    }
-
-
+    assertThat(result).isEqualTo(336);
+  }
 }

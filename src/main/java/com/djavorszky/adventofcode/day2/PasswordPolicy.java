@@ -8,28 +8,29 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class PasswordPolicy {
 
-    private final int min;
-    private final int max;
-    private final char letter;
+  private final int min;
+  private final int max;
+  private final char letter;
 
-    public static PasswordPolicy from(String input) {
-        var inputParts = input.split(" ");
+  public static PasswordPolicy from(String input) {
+    var inputParts = input.split(" ");
 
-        var minMax = inputParts[0].split("-");
+    var minMax = inputParts[0].split("-");
 
-        return new PasswordPolicy(Integer.parseInt(minMax[0]), Integer.parseInt(minMax[1]), inputParts[1].charAt(0));
-    }
+    return new PasswordPolicy(
+        Integer.parseInt(minMax[0]), Integer.parseInt(minMax[1]), inputParts[1].charAt(0));
+  }
 
-    public boolean isValidV1(String password) {
-        long foundLetters = password.chars().filter(c -> c == letter).count();
+  public boolean isValidV1(String password) {
+    long foundLetters = password.chars().filter(c -> c == letter).count();
 
-        return foundLetters >= min && foundLetters <= max;
-    }
+    return foundLetters >= min && foundLetters <= max;
+  }
 
-    public boolean isValidV2(String password) {
-        boolean first = password.charAt(min - 1) == letter;
-        boolean second = password.charAt(max - 1) == letter;
+  public boolean isValidV2(String password) {
+    boolean first = password.charAt(min - 1) == letter;
+    boolean second = password.charAt(max - 1) == letter;
 
-        return (first && !second) || (!first && second);
-    }
+    return (first && !second) || (!first && second);
+  }
 }
