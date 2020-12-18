@@ -1,9 +1,9 @@
 package com.djavorszky.adventofcode.day2;
 
-import com.djavorszky.adventofcode.Task;
+import com.djavorszky.adventofcode.Day;
 import com.djavorszky.adventofcode.helper.InputSource;
 
-public class Day2 implements Task {
+public class Day2 implements Day {
     @Override
     public Long task1(InputSource inputSource) {
         return inputSource.getInput().parallelStream().filter(line -> {

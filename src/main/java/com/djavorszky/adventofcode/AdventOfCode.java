@@ -10,13 +10,13 @@ import java.util.Map;
 
 public class AdventOfCode {
 
-    private static final Map<String, Task> tasks = Map.of(
+    private static final Map<String, Day> DAYS = Map.of(
             "day1/input.txt", new Day1(),
             "day2/input.txt", new Day2(),
             "day3/input.txt", new Day3());
 
     public static void main(String[] args) {
-        tasks.forEach((filePath, task) -> {
+        DAYS.forEach((filePath, day) -> {
             FileInputSource fileInputSource = null;
             try {
                 fileInputSource = new FileInputSource(filePath);
@@ -25,12 +25,12 @@ public class AdventOfCode {
                 System.exit(1);
             }
 
-            String dayName = task.getClass().getSimpleName();
+            String dayName = day.getClass().getSimpleName();
 
             Console.print("========= %s =========", dayName);
 
-            Console.print("Task 1: %s", task.task1(fileInputSource));
-            Console.print("Task 2: %s", task.task2(fileInputSource));
+            Console.print("Task 1: %s", day.task1(fileInputSource));
+            Console.print("Task 2: %s", day.task2(fileInputSource));
         });
 
     }

@@ -1,12 +1,12 @@
 package com.djavorszky.adventofcode.day1;
 
-import com.djavorszky.adventofcode.Task;
+import com.djavorszky.adventofcode.Day;
 import com.djavorszky.adventofcode.helper.InputSource;
 
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class Day1 implements Task {
+public class Day1 implements Day {
 
     @Override
     public Long task1(InputSource inputSource) {
