@@ -2,6 +2,7 @@ package com.djavorszky.adventofcode;
 
 import com.djavorszky.adventofcode.day1.Day1;
 import com.djavorszky.adventofcode.day2.Day2;
+import com.djavorszky.adventofcode.day3.Day3;
 import com.djavorszky.adventofcode.helper.file.FileInputSource;
 import com.djavorszky.adventofcode.util.Console;
 
@@ -11,7 +12,8 @@ public class AdventOfCode {
 
     private static final Map<String, Task> tasks = Map.of(
             "day1/input.txt", new Day1(),
-            "day2/input.txt", new Day2());
+            "day2/input.txt", new Day2(),
+            "day3/input.txt", new Day3());
 
     public static void main(String[] args) {
         tasks.forEach((filePath, task) -> {
