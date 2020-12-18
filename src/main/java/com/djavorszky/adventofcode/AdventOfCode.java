@@ -4,6 +4,7 @@ import com.djavorszky.adventofcode.day1.Day1;
 import com.djavorszky.adventofcode.day2.Day2;
 import com.djavorszky.adventofcode.day3.Day3;
 import com.djavorszky.adventofcode.day4.Day4;
+import com.djavorszky.adventofcode.day5.Day5;
 import com.djavorszky.adventofcode.helper.file.FileInputSource;
 import com.djavorszky.adventofcode.util.Console;
 
@@ -13,10 +14,16 @@ public class AdventOfCode {
 
   private static final Map<String, Day> DAYS =
       Map.of(
-          "day1/input.txt", new Day1(),
-          "day2/input.txt", new Day2(),
-          "day3/input.txt", new Day3(),
-          "day4/input.txt", new Day4());
+          "day1/input.txt",
+          new Day1(),
+          "day2/input.txt",
+          new Day2(),
+          "day3/input.txt",
+          new Day3(),
+          "day4/input.txt",
+          new Day4(),
+          "day5/input.txt",
+          new Day5());
 
   public static void main(String[] args) {
     DAYS.forEach(
