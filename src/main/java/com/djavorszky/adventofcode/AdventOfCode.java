@@ -10,23 +10,21 @@ import com.djavorszky.adventofcode.helper.file.FileInputSource;
 import com.djavorszky.adventofcode.util.Console;
 
 import java.util.Map;
+import java.util.TreeMap;
 
 public class AdventOfCode {
 
   private static final Map<String, Day> DAYS =
-      Map.of(
-          "day1/input.txt",
-          new Day1(),
-          "day2/input.txt",
-          new Day2(),
-          "day3/input.txt",
-          new Day3(),
-          "day4/input.txt",
-          new Day4(),
-          "day5/input.txt",
-          new Day5(),
-          "day6/input.txt",
-          new Day6());
+      new TreeMap<>() {
+        {
+          put("day1/input.txt", new Day1());
+          put("day2/input.txt", new Day2());
+          put("day3/input.txt", new Day3());
+          put("day4/input.txt", new Day4());
+          put("day5/input.txt", new Day5());
+          put("day6/input.txt", new Day6());
+        }
+      };
 
   public static void main(String[] args) {
     DAYS.forEach(
