@@ -6,6 +6,7 @@ import com.djavorszky.adventofcode.day3.Day3;
 import com.djavorszky.adventofcode.day4.Day4;
 import com.djavorszky.adventofcode.day5.Day5;
 import com.djavorszky.adventofcode.day6.Day6;
+import com.djavorszky.adventofcode.day7.Day7;
 import com.djavorszky.adventofcode.helper.file.FileInputSource;
 import com.djavorszky.adventofcode.util.Console;
 
@@ -23,6 +24,7 @@ public class AdventOfCode {
           put("day4/input.txt", new Day4());
           put("day5/input.txt", new Day5());
           put("day6/input.txt", new Day6());
+          put("day7/input.txt", new Day7());
         }
       };
 
