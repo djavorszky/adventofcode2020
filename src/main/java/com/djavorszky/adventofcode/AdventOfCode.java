@@ -5,6 +5,7 @@ import com.djavorszky.adventofcode.day2.Day2;
 import com.djavorszky.adventofcode.day3.Day3;
 import com.djavorszky.adventofcode.day4.Day4;
 import com.djavorszky.adventofcode.day5.Day5;
+import com.djavorszky.adventofcode.day6.Day6;
 import com.djavorszky.adventofcode.helper.file.FileInputSource;
 import com.djavorszky.adventofcode.util.Console;
 
@@ -23,7 +24,9 @@ public class AdventOfCode {
           "day4/input.txt",
           new Day4(),
           "day5/input.txt",
-          new Day5());
+          new Day5(),
+          "day6/input.txt",
+          new Day6());
 
   public static void main(String[] args) {
     DAYS.forEach(
