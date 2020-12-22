@@ -1,6 +1,7 @@
 package com.djavorszky.adventofcode;
 
 import com.djavorszky.adventofcode.day1.Day1;
+import com.djavorszky.adventofcode.day10.Day10;
 import com.djavorszky.adventofcode.day2.Day2;
 import com.djavorszky.adventofcode.day3.Day3;
 import com.djavorszky.adventofcode.day4.Day4;
@@ -29,6 +30,7 @@ public class AdventOfCode {
           put("day7/input.txt", new Day7());
           put("day8/input.txt", new Day8());
           put("day9/input.txt", new Day9());
+          put("day10/input.txt", new Day10());
         }
       };
 
