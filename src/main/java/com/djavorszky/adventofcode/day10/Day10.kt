@@ -11,7 +11,7 @@ class Day10 : Day {
 
         var oneDiff: Long = 0
         var twoDiff: Long = 0
-        var threeDiff: Long = 0
+        var threeDiff: Long = 1
         for (idx in sortedList.slice(0 until sortedList.size - 1).indices) {
             val currentItem = sortedList[idx]
             val nextItem = sortedList[idx + 1]
@@ -24,13 +24,10 @@ class Day10 : Day {
             }
         }
 
-        return oneDiff * (threeDiff + 1)
+        return oneDiff * threeDiff
     }
 
-    override fun task2(inputSource: InputSource?): Long {
-        //TODO("Not yet implemented")
+    override fun task2(inputSource: InputSource): Long {
         return 0
     }
-
-
 }
