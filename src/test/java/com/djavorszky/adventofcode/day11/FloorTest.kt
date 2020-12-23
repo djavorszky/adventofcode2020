@@ -35,7 +35,7 @@ internal class FloorTest {
         val expectedNeighbours = listOf(Floor.Tile.FLOOR, Floor.Tile.FLOOR, Floor.Tile.FREE)
 
 
-        assertThat(actual.getNeighbours(0, 0)).isEqualTo(expectedNeighbours)
+        assertThat(actual.getImmediateNeighbours(0, 0)).isEqualTo(expectedNeighbours)
     }
 
     @Test
@@ -50,7 +50,7 @@ internal class FloorTest {
 
         val expectedNeighbours = listOf(Floor.Tile.OCCUPIED, Floor.Tile.FLOOR, Floor.Tile.FLOOR)
 
-        assertThat(actual.getNeighbours(3, 2)).isEqualTo(expectedNeighbours)
+        assertThat(actual.getImmediateNeighbours(3, 2)).isEqualTo(expectedNeighbours)
     }
 
     @Test
@@ -66,7 +66,7 @@ internal class FloorTest {
         val expectedNeighbours =
                 listOf(Floor.Tile.FREE, Floor.Tile.OCCUPIED, Floor.Tile.OCCUPIED, Floor.Tile.FLOOR, Floor.Tile.FREE)
 
-        assertThat(actual.getNeighbours(3, 1)).isEqualTo(expectedNeighbours)
+        assertThat(actual.getImmediateNeighbours(3, 1)).isEqualTo(expectedNeighbours)
     }
 
     @Test
@@ -83,7 +83,7 @@ internal class FloorTest {
                 listOf(Floor.Tile.OCCUPIED, Floor.Tile.FLOOR,
                         Floor.Tile.FREE, Floor.Tile.FREE, Floor.Tile.OCCUPIED)
 
-        assertThat(actual.getNeighbours(0, 1)).isEqualTo(expectedNeighbours)
+        assertThat(actual.getImmediateNeighbours(0, 1)).isEqualTo(expectedNeighbours)
     }
 
     @Test
@@ -101,6 +101,6 @@ internal class FloorTest {
                         Floor.Tile.FLOOR, Floor.Tile.OCCUPIED,
                         Floor.Tile.FREE, Floor.Tile.OCCUPIED, Floor.Tile.FLOOR)
 
-        assertThat(actual.getNeighbours(1, 1)).isEqualTo(expectedNeighbours)
+        assertThat(actual.getImmediateNeighbours(1, 1)).isEqualTo(expectedNeighbours)
     }
 }

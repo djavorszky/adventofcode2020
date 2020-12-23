@@ -24,4 +24,21 @@ L.LLLLL.LL
 
         assertThat(day.task1(StringInputSource(input, "\n"))).isEqualTo(37)
     }
+
+    @Test
+    fun `task 2`() {
+        val input = """L.LL.LL.LL
+LLLLLLL.LL
+L.L.L..L..
+LLLL.LL.LL
+L.LL.LL.LL
+L.LLLLL.LL
+..L.L.....
+LLLLLLLLLL
+L.LLLLLL.L
+L.LLLLL.LL
+"""
+
+        assertThat(day.task2(StringInputSource(input, "\n"))).isEqualTo(26)
+    }
 }
