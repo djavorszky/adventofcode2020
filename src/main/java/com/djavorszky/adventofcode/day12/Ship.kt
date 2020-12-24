@@ -8,6 +8,8 @@ class Ship {
     private var xLocation = 0
     private var yLocation = 0
 
+    private val waypoint = Waypoint(10, 1)
+
     fun getDistance(): Long {
         return (abs(xLocation) + abs(yLocation)).toLong()
     }
@@ -40,6 +42,41 @@ class Ship {
         currentDirection = directions[newDirectionIndex]
     }
 
+    fun moveWaypoint(direction: Direction, amount: Int) {
+        when (direction) {
+            Direction.NORTH -> waypoint.y += amount
+            Direction.EAST -> waypoint.x += amount
+            Direction.SOUTH -> waypoint.y -= amount
+            Direction.WEST -> waypoint.x -= amount
+        }
+    }
+
+    fun moveToWaypoint(numberOfTimes: Int) {
+        repeat(numberOfTimes) {
+            val xDiff = waypoint.x - xLocation
+            val yDiff = waypoint.y - yLocation
+
+            xLocation = waypoint.x
+            yLocation = waypoint.y
+
+            waypoint.x += xDiff
+            waypoint.y += yDiff
+        }
+    }
+
+    fun rotateWaypoint(direction: TurnDirection, amount: Int) {
+        val rotationCount = amount / 90
+
+        repeat(rotationCount) {
+            val xDiff = waypoint.x - xLocation
+            val yDiff = waypoint.y - yLocation
+
+            when (direction) {
+                TurnDirection.LEFT -> waypoint.x = (xLocation - yDiff).also { waypoint.y = yLocation + xDiff }
+                TurnDirection.RIGHT -> waypoint.x = (xLocation + yDiff).also { waypoint.y = yLocation - xDiff }
+            }
+        }
+    }
 }
 
 enum class Direction {

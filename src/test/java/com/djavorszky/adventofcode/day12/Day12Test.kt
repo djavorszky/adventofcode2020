@@ -58,4 +58,11 @@ internal class Day12Test {
             assertThat(day12.task1 { input.split(",") }).`as`("failed for test $input").isEqualTo(expectedDistance)
         }
     }
+
+    @Test
+    fun `task 2`() {
+        val input = "F10,N3,F7,R90,F11"
+
+        assertThat(day12.task2 { input.split(",") }).isEqualTo(286)
+    }
 }

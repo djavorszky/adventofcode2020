@@ -38,6 +38,23 @@ class Day12 : Day {
     }
 
     override fun task2(inputSource: InputSource): Long {
-        TODO("Not yet implemented")
+
+        val ship = Ship()
+
+        inputSource.input.forEach {
+            val instruction = it[0]
+
+            val amount = it.substring(1 until it.length).toInt()
+
+            if (instruction == 'F') {
+                ship.moveToWaypoint(amount)
+            }
+
+            directions[instruction]?.let { dir -> ship.moveWaypoint(dir, amount) }
+
+            turns[instruction]?.let { dir -> ship.rotateWaypoint(dir, amount) }
+        }
+
+        return ship.getDistance()
     }
 }
