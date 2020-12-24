@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 public class Day9 implements Day {
   @Override
-  public Long task1(InputSource inputSource) {
+  public long task1(InputSource inputSource) {
     CodeDecoder codeDecoder = new CodeDecoder();
 
     return codeDecoder.findTask1Weakness(
@@ -15,7 +15,7 @@ public class Day9 implements Day {
   }
 
   @Override
-  public Long task2(InputSource inputSource) {
+  public long task2(InputSource inputSource) {
     CodeDecoder codeDecoder = new CodeDecoder();
 
     return codeDecoder.findTask2Weakness(

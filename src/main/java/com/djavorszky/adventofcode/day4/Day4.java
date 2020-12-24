@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Day4 implements Day {
   @Override
-  public Long task1(InputSource inputSource) {
+  public long task1(InputSource inputSource) {
     List<String> condensedInput = InputParser.parseToInputLines(inputSource.getInput());
 
     return condensedInput.parallelStream()
@@ -18,7 +18,7 @@ public class Day4 implements Day {
   }
 
   @Override
-  public Long task2(InputSource inputSource) {
+  public long task2(InputSource inputSource) {
     List<String> condensedInput = InputParser.parseToInputLines(inputSource.getInput());
 
     return condensedInput.parallelStream()

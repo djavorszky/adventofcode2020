@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class Day5 implements Day {
   @Override
-  public Long task1(InputSource inputSource) {
+  public long task1(InputSource inputSource) {
     return Collections.max(
         inputSource.getInput().parallelStream()
             .map(SeatFinder::findSeatId)
@@ -17,7 +17,7 @@ public class Day5 implements Day {
   }
 
   @Override
-  public Long task2(InputSource inputSource) {
+  public long task2(InputSource inputSource) {
 
     List<Long> seatIds =
         inputSource.getInput().parallelStream()

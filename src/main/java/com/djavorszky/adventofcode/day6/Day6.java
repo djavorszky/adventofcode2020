@@ -11,7 +11,7 @@ import java.util.Set;
 
 public class Day6 implements Day {
   @Override
-  public Long task1(InputSource inputSource) {
+  public long task1(InputSource inputSource) {
     return InputParser.parseToInputLines(inputSource.getInput()).parallelStream()
         .map(
             line -> {
@@ -29,7 +29,7 @@ public class Day6 implements Day {
   }
 
   @Override
-  public Long task2(InputSource inputSource) {
+  public long task2(InputSource inputSource) {
     return InputParser.parseToInputSections(inputSource.getInput()).parallelStream()
         .map(
             section -> {

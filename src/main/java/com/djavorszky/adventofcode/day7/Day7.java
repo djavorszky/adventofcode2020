@@ -11,7 +11,7 @@ public class Day7 implements Day {
   private Map<String, List<Bags>> task2ContainsRelationship;
 
   @Override
-  public Long task1(InputSource inputSource) {
+  public long task1(InputSource inputSource) {
     inputSource.getInput().stream()
         .map(Holder::from)
         .forEach(
@@ -34,7 +34,7 @@ public class Day7 implements Day {
   }
 
   @Override
-  public Long task2(InputSource inputSource) {
+  public long task2(InputSource inputSource) {
     task2ContainsRelationship =
         inputSource.getInput().stream()
             .map(Holder::from)

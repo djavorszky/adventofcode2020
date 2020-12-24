@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Day3 implements Day {
   @Override
-  public Long task1(InputSource inputSource) {
+  public long task1(InputSource inputSource) {
     List<String> input = inputSource.getInput();
 
     MapStepper mapStepper = new MapStepper(3, 1, input);
@@ -17,7 +17,7 @@ public class Day3 implements Day {
   }
 
   @Override
-  public Long task2(InputSource inputSource) {
+  public long task2(InputSource inputSource) {
     List<String> input = inputSource.getInput();
 
     List<MapStepper> mapSteppers =

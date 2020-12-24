@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 public class Day8 implements Day {
   @Override
-  public Long task1(InputSource inputSource) {
+  public long task1(InputSource inputSource) {
     List<Instruction> instructions =
         inputSource.getInput().stream().map(Instruction::parse).collect(Collectors.toList());
 
@@ -20,7 +20,7 @@ public class Day8 implements Day {
   }
 
   @Override
-  public Long task2(InputSource inputSource) {
+  public long task2(InputSource inputSource) {
     List<Instruction> instructions =
             inputSource.getInput().stream().map(Instruction::parse).collect(Collectors.toList());
 

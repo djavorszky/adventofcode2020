@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 public class Day1 implements Day {
 
   @Override
-  public Long task1(InputSource inputSource) {
+  public long task1(InputSource inputSource) {
     Set<Integer> numbers =
         inputSource.getInput().parallelStream().map(Integer::parseInt).collect(Collectors.toSet());
 
@@ -21,7 +21,7 @@ public class Day1 implements Day {
   }
 
   @Override
-  public Long task2(InputSource inputSource) {
+  public long task2(InputSource inputSource) {
     Set<Integer> numbers =
         inputSource.getInput().parallelStream().map(Integer::parseInt).collect(Collectors.toSet());
 

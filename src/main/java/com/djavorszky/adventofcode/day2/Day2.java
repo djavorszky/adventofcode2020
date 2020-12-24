@@ -5,7 +5,7 @@ import com.djavorszky.adventofcode.helper.InputSource;
 
 public class Day2 implements Day {
   @Override
-  public Long task1(InputSource inputSource) {
+  public long task1(InputSource inputSource) {
     return inputSource.getInput().parallelStream()
         .filter(
             line -> {
@@ -19,7 +19,7 @@ public class Day2 implements Day {
   }
 
   @Override
-  public Long task2(InputSource inputSource) {
+  public long task2(InputSource inputSource) {
     return inputSource.getInput().parallelStream()
         .filter(
             line -> {
