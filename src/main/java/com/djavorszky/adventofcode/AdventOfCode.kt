@@ -4,6 +4,7 @@ import com.djavorszky.adventofcode.day1.Day1
 import com.djavorszky.adventofcode.day10.Day10
 import com.djavorszky.adventofcode.day11.Day11
 import com.djavorszky.adventofcode.day12.Day12
+import com.djavorszky.adventofcode.day13.Day13
 import com.djavorszky.adventofcode.day2.Day2
 import com.djavorszky.adventofcode.day3.Day3
 import com.djavorszky.adventofcode.day4.Day4
@@ -18,7 +19,8 @@ object AdventOfCode {
     private val DAYS = listOf(
             Day1(), Day2(), Day3(), Day4(),
             Day5(), Day6(), Day7(), Day8(),
-            Day9(), Day10(), Day11(), Day12())
+            Day9(), Day10(), Day11(), Day12(),
+            Day13())
 
     @JvmStatic
     fun main(args: Array<String>) {
